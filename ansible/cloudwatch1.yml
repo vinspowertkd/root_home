@@ -1,0 +1,21 @@
+- name: Set up metric alerts
+  hosts: localhost
+  connection: local
+
+  tasks:
+    - name: Create CPU utilization metric alarm
+      ec2_metric_alarm:
+      args:
+        state: present
+        name: 'cpu low'
+        metric: CPUUtilization
+        statistic: Average
+        comparison: ">="
+        threshold: 80.0
+        unit: Percent
+        period: 3000
+        evaluation_periods: 1
+        description: >
+          Triggered when CPU utilization is more than
+          80% for 5 minutes
+        with_items: groups['your_targets']

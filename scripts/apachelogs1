@@ -1,0 +1,3 @@
+#!/bin/bash
+cd /var/log/httpd/
+ awk '{ print $1}' access_log-20200608   | uniq -c | sort -nr | head -n 10 | awk '{ print $2}'

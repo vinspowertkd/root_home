@@ -1,0 +1,3 @@
+#!/bin/bash
+cd /var/log/httpd/
+grep "404" access_log-20200608 | sort -k 2 |   awk '{ print $1, $4}' | head -n 10

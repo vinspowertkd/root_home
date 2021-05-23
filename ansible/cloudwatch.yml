@@ -1,0 +1,25 @@
+---
+- hosts: localhost
+  connection: local
+  tasks:
+#  - name: Get instance ec2 facts
+#    action: ec2_facts
+#    register: ec2_facts
+  - name: Create CPU utilization metric alarm
+    community.aws.ec2_metric_alarm:
+      state: present
+      region: us-west-2
+      name: "HOW_TO_READ_DBInstanceOdentifier_NAME_FROM_Inventory"
+      metric: "CPUUtilization"
+      statistic: Average 
+      comparison: ">="
+      threshold: 70.0
+      unit: "Percent"
+      period: 300
+      evaluation_periods: 1
+      description: "It will be triggered when CPU utilization is more than 70% for 5 minutes"
+      dimensions: { 'InstanceId': 'i-071bbaeda40ecd215' }
+      alarm_actions: arn:aws:sns:us-west-2:884012586660:vins_sns_test
+      ok_actions: arn:aws:sns:us-west-2:884012586660:vins_sns_test
+
+
